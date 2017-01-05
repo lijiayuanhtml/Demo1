@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+<style>
+	*{margin: 0; padding: 0;}
+	a{-webkit-tap-highlight-color: rgba(255,255,255,0.8);}
+	li{list-style: none;}
+	html,body{ width: 100%; height: 100%; background-color: #000; }
+	#album{ position: relative; width: 100%; height: 100%; z-index: 2;  }
+	#imglist{ position: relative; width: 100%; }
+	#imglist li{ float: left;}
+	#showBigPic,#editwrap{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 3; display: none; background-color: #000; overflow: hidden;}
+	#showBigPic ul{ width: 100%; height: 100%; }
+	#showBigPic ul li{ width: 100%; height: 100%; overflow: hidden;
+		position: absolute;
+		display: -webkit-box;
+		-webkit-box-pack: center;
+		-webkit-box-align: center;}
+	#toolbar{ position: absolute; bottom: 20px; left: 50%; margin-left: -150px; width: 300px; height: 50px; border-radius: 15px; background: rgba(0,0,0,.7);
+		transform: scale(0);
+		-webkit-transform: scale(0);
+		transition: all 1s;
+		-webkit-transition: all 1s; }
+	#toolbar.on{ -webkit-transform: scale(1); }
+	#toolbar>a{ display: block; float: left; width: 100px; height: 50px; line-height: 50px; text-align: center; font-size: 16px; color: #fff; }
+	#gamewrap,#editwrap{ position: fixed; left:0; top: 0; width: 100%; height: 100%; z-index: 10; display: none; background-color: #000;}
+	#game_canvas{ position: absolute; top:0; left: 0; width: 100%; height: 100%; z-index: 5;}
+	#blur-image{position: absolute; display: block; z-index: 4; 
+	filter: blur(10px);
+	-webkit-filter:blur(10px);}
+	#save{opacity: 0;}
+	#reset,#show,#quit{ position: absolute; width: 80px; height: 40px; border-radius: 10px; color: #fff; font-size: 20px; font-weight: bold; line-height: 40px; text-align: center; z-index: 6; outline: none; border: 0; bottom: 10%; }
+	#reset{background: green; left:15%;}
+	#show{background: red; right: 15%;}
+	#quit{background: blue; left: 50%; margin-left: -40px;}
+	#editcanvasBg,#clipcanvasBg,#writingcanvas{position: fixed; top:0; left: 0; width: 100%; height: 100%;}
+	#editcanvasBg{ z-index: 5; background: #000; }
+	.blur{ -webkit-filter: blur(20px); }
+	#clipcanvasBg{ z-index: 6; display: none; }
+	#writingcanvas{ z-index: 6; display: none; }
+	#editbar,#writebar{ position: absolute; bottom: 5%; left: 50%; margin-left: -90px; width: 180px; height: 40px; background: rgba(0,0,0,.6); border-radius: 5px; overflow: hidden; z-index: 10; }
+	#writebar{display: none;}
+	#clip,#back,#write,#rewrite,#exitwrite,#finishwrite{ display: block; float: left; width: 60px; height: 40px; line-height: 40px; text-align: center; color: #fff; font-size: 18px; }
+	#exitclip,#finishclip,#reclip{ position: absolute; display: none; width: 50px; height: 50px; line-height: 50px; font-size: 18px; color: #fff; opacity: 0.8; text-align: center; z-index: 7; text-decoration: none; }
+	#exitclip{ left: 0; top: 0; }
+	#reclip{ left: 50%; top: 0; margin-left: -25px; }
+	#finishclip{ right: 0; top: 0; }
+</style>
+</head>
+<body>
+	<div id="album">
+		<ul id="imglist"></ul>
+	</div>
+	<div id="showBigPic">
+		<ul></ul>
+		<div id="toolbar" class="on">
+			<a href="javascript:;" id="gameStart">Game</a>
+			<a href="javascript:;" id="editStart">Edit</a>
+			<a href="javascript:;" id="blurChoose">Blur</a>
+		</div>
+	</div>
+	<div id="gamewrap">
+		<img id="blur-image" src="" alt="">
+		<canvas id="game_canvas"></canvas>
+		<canvas id="save"></canvas>
+		<button id="reset">reset</button>
+		<button id="quit">quit</button>
+		<button id="show">show</button>
+	</div>
+	<div id="editwrap">
+		<div id="editcanvasBg">
+			<canvas id="editcanvas"></canvas>
+		</div>
+		<div id="clipcanvasBg">
+			<canvas id="clipcanvas"></canvas>
+		</div>
+		<canvas id="writingcanvas"></canvas>
+		
+		<div id="editbar">
+			<a href="javascript:;" id="clip">Clip</a>
+			<a href="javascript:;" id="write">Write</a>
+			<a href="javascript:;" id="back">Back</a>
+		</div>
+		<a href="javascript:;" id="reclip">X</a>
+		<a href="javascript:;" id="exitclip">Quit</a>
+		<a href="javascript:;" id="finishclip">O</a>
+		<div id="writebar">
+			<a href="javascript:;" id="rewrite">X</a>
+			<a href="javascript:;" id="exitwrite">Quit</a>
+			<a href="javascript:;" id="finishwrite">O</a>
+		</div>
+	</div>
+</body>
+<script src="js/jquery-1.12.0.min.js"></script>
+<script src="js/touch.js"></script>
+<script src="js/js.js"></script>
+</html>
